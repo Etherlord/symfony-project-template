@@ -1,0 +1,15 @@
+/docker/                       export-ignore
+/src-dev/                      export-ignore
+/tests/                        export-ignore
+/.gitattributes                export-ignore
+/.gitignore                    export-ignore
+/.php-cs-fixer.php             export-ignore
+/composer-require-checker.json export-ignore
+/composer-unused.php           export-ignore
+/deptrac.directories.yaml      export-ignore
+/deptrac.features.yaml         export-ignore
+/deptrac.layers.yaml           export-ignore
+/docker-compose.yaml           export-ignore
+/Makefile                      export-ignore
+/psalm.xml                     export-ignore
+/rector.php                    export-ignore

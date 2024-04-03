@@ -1,0 +1,141 @@
+{
+    "name": "symfony-template/api",
+    "description": "Backend App",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": "^8.3",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-mbstring": "*",
+        "ext-simplexml": "*",
+        "ext-sockets": "*",
+        "cuyz/valinor": "^1.11",
+        "doctrine/dbal": "^4.0.1",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/migrations": "^3.7.4",
+        "lexik/jwt-authentication-bundle": "^2.20.3",
+        "nelmio/api-doc-bundle": "^4.25",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.27",
+        "ramsey/uuid": "^4.7.5",
+        "runtime/roadrunner-symfony-nyholm": "^0.3.1",
+        "symfony/asset": "^7.0.3",
+        "symfony/cache-contracts": "^3.4",
+        "symfony/console": "^7.0.4",
+        "symfony/dependency-injection": "^7.0.4",
+        "symfony/dotenv": "^7.0.4",
+        "symfony/event-dispatcher": "^7.0.3",
+        "symfony/flex": "^2.4.5",
+        "symfony/framework-bundle": "^7.0.4",
+        "symfony/http-foundation": "^7.0.4",
+        "symfony/http-kernel": "^7.0.5",
+        "symfony/lock": "^7.0.3",
+        "symfony/messenger": "^7.0.4",
+        "symfony/monolog-bundle": "^3.10.0",
+        "symfony/property-access": "^7.0.4",
+        "symfony/property-info": "^7.0.3",
+        "symfony/rate-limiter": "^7.0.3",
+        "symfony/routing": "^7.0.5",
+        "symfony/runtime": "^7.0.3",
+        "symfony/serializer": "^7.0.4",
+        "symfony/twig-bundle": "^7.0.4",
+        "symfony/validator": "^7.0.5",
+        "symfony/yaml": "^7.0.3",
+        "thesis/postgres": "dev-master",
+        "thesis/thesis": "dev-master",
+        "twig/twig": "^3.8.0",
+        "zircote/swagger-php": "^4.8.6"
+    },
+    "require-dev": {
+        "doctrine/orm": "^3.1.1",
+        "ergebnis/composer-normalize": "^2.42",
+        "friendsofphp/php-cs-fixer": "^3.52.1",
+        "icanhazstring/composer-unused": "^0.8.11",
+        "maglnet/composer-require-checker": "^4.11",
+        "phpunit/phpunit": "^10.5.16",
+        "phpyh/coding-standard": "^2.6.1",
+        "psalm/plugin-symfony": "^5.1",
+        "qossmic/deptrac-shim": "^1.0.2",
+        "rector/rector": "^1.0.3",
+        "vimeo/psalm": "^5.23.1"
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*",
+        "symfony/polyfill-php83": "*"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Etherlord/postgres-thesis"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Etherlord/thesis"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
+        "files": [
+            "src/Infrastructure/functions.php",
+            "src/Infrastructure/DependencyInjection/functions.php",
+            "src/Infrastructure/Uuid/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\": [
+                "src-dev/",
+                "tests/"
+            ]
+        },
+        "files": [
+            "src-dev/Tests/Functional/functions.php"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "audit": {
+            "abandoned": "ignore"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "7.0.*"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        }
+    }
+}

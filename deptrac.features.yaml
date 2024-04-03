@@ -1,0 +1,57 @@
+parameters:
+    projectDirectory: '%currentWorkingDirectory%'
+    
+    analyser:
+        types:
+            - class
+            - class_superglobal
+            - file
+            - function
+            - function_superglobal
+            - use
+
+    paths:
+        - src
+
+    layers:
+        -
+            name: Infrastructure
+            collectors:
+                -
+                    type: className
+                    regex: ^App\\Infrastructure\\
+        -
+            name: IndexPage
+            collectors:
+                -
+                    type: classNameRegex
+                    regex: /^App\\Feature\\IndexPage\\\w+$/i
+        -
+            name: _IndexPage
+            collectors:
+                -
+                    type: classNameRegex
+                    regex: /^App\\Feature\\IndexPage\\\w+\\/i
+        -
+            name: User
+            collectors:
+                -
+                    type: classNameRegex
+                    regex: /^App\\Feature\\User\\\w+$/i
+        -
+            name: _User
+            collectors:
+                -
+                    type: classNameRegex
+                    regex: /^App\\Feature\\User\\\w+\\/i
+    ruleset:
+        IndexPage:
+            - Infrastructure
+        _IndexPage:
+            - IndexPage
+            - Infrastructure
+        User:
+            - Infrastructure
+        _User:
+            - User
+            - Infrastructure

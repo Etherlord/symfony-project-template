@@ -1,0 +1,25 @@
+parameters:
+    projectDirectory: "%currentWorkingDirectory%"
+
+    analyser:
+        types:
+            - class
+            - class_superglobal
+            - file
+            - function
+            - function_superglobal
+            - use
+
+    paths:
+        - src
+
+    layers:
+        - { name: Feature,        collectors: [ { type: className, regex: ^App\\Feature\\ } ] }
+        - { name: Fixtures,       collectors: [ { type: className, regex: ^App\\Fixtures\\ } ] }
+        - { name: Http,           collectors: [ { type: className, regex: ^App\\Http\\ } ] }
+        - { name: Infrastructure, collectors: [ { type: className, regex: ^App\\Infrastructure\\ } ] }
+
+    ruleset:
+        Feature:  [ Infrastructure ]
+        Fixtures: [ Infrastructure, Feature ]
+        Http:     [ Infrastructure, Feature ]

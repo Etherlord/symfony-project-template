@@ -1,0 +1,36 @@
+parameters:
+    projectDirectory: "%currentWorkingDirectory%"
+
+    analyser:
+        types:
+            - class
+            - class_superglobal
+            - file
+            - function
+            - function_superglobal
+            - use
+
+    paths:
+        - bin
+        - config
+        - migrations
+        - public
+        - src
+        - src-dev
+        - tests
+
+    layers:
+        - { name: bin,        collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/bin/ } ] }
+        - { name: config,     collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/config/ } ] }
+        - { name: migrations, collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/migrations/ } ] }
+        - { name: public,     collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/public/ } ] }
+        - { name: src,        collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/src/ } ] }
+        - { name: src_dev,    collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/src-dev/ } ] }
+        - { name: tests,      collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/tests/ } ] }
+
+    ruleset:
+        bin:     [ src ]
+        config:  [ src, srv_dev ]
+        public:  [ src ]
+        src_dev: [ src ]
+        tests:   [ src, src_dev ]

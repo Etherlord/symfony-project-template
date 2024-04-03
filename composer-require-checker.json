@@ -1,0 +1,8 @@
+{
+    "symbol-whitelist": [
+        "isUuid",
+        "Doctrine\\ORM\\Tools\\Event\\GenerateSchemaEventArgs",
+        "Doctrine\\ORM\\Tools\\ToolEvents"
+    ],
+    "scan-files": []
+}
