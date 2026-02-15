@@ -27,7 +27,7 @@ final readonly class Uuid implements \JsonSerializable, \Stringable
             return new self($uuid);
         }
 
-        throw new \InvalidArgumentException(sprintf('Expected a valid UUID, got %s.', $uuid));
+        throw new \InvalidArgumentException(\sprintf('Expected a valid UUID, got %s.', $uuid));
     }
 
     public static function fromRamsey(UuidInterface $uuid): self

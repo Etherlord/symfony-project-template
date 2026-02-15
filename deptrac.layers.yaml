@@ -1,6 +1,7 @@
 parameters:
     projectDirectory: "%currentWorkingDirectory%"
 
+deptrac:
     analyser:
         types:
             - class
@@ -11,15 +12,35 @@ parameters:
             - use
 
     paths:
-        - src
+        - src/
 
     layers:
-        - { name: Feature,        collectors: [ { type: className, regex: ^App\\Feature\\ } ] }
-        - { name: Fixtures,       collectors: [ { type: className, regex: ^App\\Fixtures\\ } ] }
-        - { name: Http,           collectors: [ { type: className, regex: ^App\\Http\\ } ] }
-        - { name: Infrastructure, collectors: [ { type: className, regex: ^App\\Infrastructure\\ } ] }
+        - name: Feature
+          collectors:
+              - type: classNameRegex
+                value: '/^App\\Feature\\.*$/'
+
+        - name: Fixtures
+          collectors:
+              - type: classNameRegex
+                value: '/^App\\Fixtures\\.*$/'
+
+        - name: Http
+          collectors:
+              - type: classNameRegex
+                value: '/^App\\Http\\.*$/'
+
+        - name: Infrastructure
+          collectors:
+              - type: classNameRegex
+                value: '/^App\\Infrastructure\\.*$/'
 
     ruleset:
-        Feature:  [ Infrastructure ]
-        Fixtures: [ Infrastructure, Feature ]
-        Http:     [ Infrastructure, Feature ]
+        Feature:
+            - Infrastructure
+        Fixtures:
+            - Infrastructure
+            - Feature
+        Http:
+            - Infrastructure
+            - Feature

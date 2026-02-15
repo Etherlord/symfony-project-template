@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\SchemaConfigurator;
 
+use Doctrine\DBAL\Schema\Name\Identifier;
+use Doctrine\DBAL\Schema\Name\UnqualifiedName;
+use Doctrine\DBAL\Schema\PrimaryKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
+use Doctrine\DBAL\Types\Exception\TypesException;
 use Doctrine\DBAL\Types\Types;
 
 final readonly class TableConfigurator
@@ -16,10 +20,22 @@ final readonly class TableConfigurator
 
     /**
      * @no-named-arguments
+     * @param non-empty-string $column
+     * @param non-empty-string ...$columns
      */
     public function primaryKey(string $column, string ...$columns): self
     {
-        $this->table->setPrimaryKey([$column, ...$columns]);
+        $primaryKeyConstraintEditor = PrimaryKeyConstraint::editor()
+            ->setColumnNames(
+                new UnqualifiedName(Identifier::quoted($column)),
+                ...array_map(
+                    static fn(string $column) => new UnqualifiedName(Identifier::quoted($column)),
+                    $columns,
+                ),
+            )
+        ;
+
+        $this->table->addPrimaryKeyConstraint($primaryKeyConstraintEditor->create());
 
         return $this;
     }
@@ -44,6 +60,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function smallIntColumn(string $name, bool $nullable = false, ?int $default = null): self
     {
         $this
@@ -56,6 +75,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function intColumn(string $name, bool $nullable = false, bool $unsigned = false, ?int $default = null): self
     {
         $this
@@ -71,6 +93,7 @@ final readonly class TableConfigurator
 
     /**
      * @param ?numeric-string $default
+     * @throws TypesException
      */
     public function bigintColumn(string $name, bool $nullable = false, ?string $default = null): self
     {
@@ -84,6 +107,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function decimalColumn(string $name, int $precision = 10, int $scale = 5, bool $nullable = false, ?int $default = null): self
     {
         $this
@@ -98,6 +124,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function floatColumn(string $name, bool $nullable = false, ?int $default = null): self
     {
         $this
@@ -110,6 +139,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function stringColumn(string $name, bool $nullable = false, ?string $default = null, ?int $length = null, bool $fixed = false): self
     {
         $this
@@ -124,6 +156,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function textColumn(string $name, bool $nullable = false, ?string $default = null): self
     {
         $this
@@ -136,6 +171,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function boolColumn(string $name, bool $nullable = false, ?bool $default = null): self
     {
         $this
@@ -148,6 +186,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function uuidColumn(string $name, bool $nullable = false, ?string $default = null): self
     {
         $this
@@ -160,6 +201,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function jsonColumn(string $name, bool $nullable = false, mixed $default = null): self
     {
         $this
@@ -172,6 +216,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function jsonbColumn(string $name, bool $nullable = false, mixed $default = null): self
     {
         $this
@@ -185,6 +232,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function dateTimeColumn(string $name, bool $nullable = false, mixed $default = null): self
     {
         $this
@@ -197,6 +247,9 @@ final readonly class TableConfigurator
         return $this;
     }
 
+    /**
+     * @throws TypesException
+     */
     public function dateColumn(string $name, bool $nullable = false, mixed $default = null): self
     {
         $this

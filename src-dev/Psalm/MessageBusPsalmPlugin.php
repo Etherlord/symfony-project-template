@@ -55,7 +55,7 @@ final class MessageBusPsalmPlugin implements PluginEntryPointInterface, AfterFun
 
             IssueBuffer::accepts(
                 new MessageContractNotSatisfied(
-                    sprintf(
+                    \sprintf(
                         'Handler %s::%s return type %s does not satisfy contract %s of %s',
                         $storage->defining_fqcln ?? '',
                         $storage->cased_name ?? '',

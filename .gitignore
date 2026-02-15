@@ -1,3 +1,4 @@
+config/reference.php
 docker/traefik/*.crt
 docker/traefik/*.key
 
@@ -9,6 +10,7 @@ docker/traefik/*.key
 /public/bundles/
 /var/
 /vendor/
+/tools/psalm/vendor/
 ###< symfony/framework-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###

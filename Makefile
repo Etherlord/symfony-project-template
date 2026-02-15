@@ -100,7 +100,7 @@ check: rector cs psalm yaml-lint deptrac container schema-validate composer ## �
 .PHONY: check
 
 psalm: var vendor ## Запустить полный статический анализ PHP кода при помощи Psalm (https://psalm.dev/)
-	$(PHP) vendor/bin/psalm --no-diff
+	$(PHP) tools/psalm/vendor/bin/psalm --no-diff
 .PHONY: psalm
 
 cs: var vendor ## Проверить PHP code style при помощи PHP CS Fixer (https://github.com/FriendsOfPHP/PHP-CS-Fixer)

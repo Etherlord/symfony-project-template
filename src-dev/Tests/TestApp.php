@@ -24,7 +24,7 @@ final class TestApp
     {
         return new PostgresConnection(
             host: $_ENV['DB_HOST'] ?? '',
-            port: (int) ($_ENV['DB_PORT'] ?? 5432),
+            port: (int) ($_ENV['DB_PORT'] ?? 5_432),
             user: $_ENV['DB_USER'] ?? '',
             password: $_ENV['DB_PASSWORD'] ?? '',
             dbName: $_ENV['DB_NAME_TEST'] ?? '',

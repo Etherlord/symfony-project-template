@@ -11,6 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 final readonly class ConvertToJsonResponseControllerResultListener implements EventSubscriberInterface
@@ -29,6 +30,9 @@ final readonly class ConvertToJsonResponseControllerResultListener implements Ev
         ];
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function onKernelView(ViewEvent $event): void
     {
         $status = Status::OK;

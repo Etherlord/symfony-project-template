@@ -10,10 +10,10 @@ use App\Infrastructure\Http\Symfony\ErrorResponse;
 use App\Infrastructure\Jwt\LexikJWTIntegration\JwtEncoder;
 use App\Infrastructure\MessageBus\Symfony\MessageBus;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTEncodeFailureException;
-use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class Action
@@ -38,7 +38,7 @@ final class Action
         content: new Model(type: ErrorResponse::class),
     )]
     #[Route(path: '/authenticate', methods: ['POST'])]
-    public function __invoke(#[MapRequestPayload] Request $request, MessageBus $messageBus, JwtEncoder $jwtEncoder, RateLimiterFactory $authenticateLimiter): Response|InvalidLoginOrPassword|TooManyFailedAttempts
+    public function __invoke(#[MapRequestPayload] Request $request, MessageBus $messageBus, JwtEncoder $jwtEncoder, RateLimiterFactoryInterface $authenticateLimiter): Response|InvalidLoginOrPassword|TooManyFailedAttempts
     {
         $email = mb_strtolower($request->email);
 

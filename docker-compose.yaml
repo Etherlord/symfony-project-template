@@ -1,6 +1,6 @@
 services:
     postgres:
-        image: postgres:16.2
+        image: postgres:18.1
         command: postgres -c config_file=/etc/postgresql/postgresql.conf
         healthcheck:
             test: pg_isready -d ${DB_NAME}
@@ -14,7 +14,7 @@ services:
         ports:
             - '${DB_PORT_EXTERNAL}:5432'
         volumes:
-            - postgres:/var/lib/postgresql/data:delegated
+            - postgres:/var/lib/postgresql:delegated
             - ./docker/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
 
     php:
@@ -45,7 +45,7 @@ services:
             - traefik.http.services.php.loadBalancer.server.port=80
 
     traefik:
-        image: traefik:v3.0
+        image: traefik:v3.6.8
         command:
             - --api.insecure=true
             - --providers.file.filename=/config/config.toml

@@ -10,7 +10,6 @@ use App\Infrastructure\Doctrine\SchemaConfigurator\ConfigurableSchemaProvider;
 use App\Infrastructure\Doctrine\SchemaConfigurator\SchemaSubscriber;
 use App\Infrastructure\Doctrine\SchemaConfigurator\SchemaSubscriberChain;
 use Doctrine\Migrations\Provider\SchemaProvider;
-use Doctrine\ORM\Tools\ToolEvents;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function App\Infrastructure\DependencyInjection\inlineService;
@@ -28,18 +27,14 @@ return static function (ContainerConfigurator $di, ContainerBuilder $builder): v
 
     $module = Module::create($di);
     $module
-        ->set(SchemaProvider::class)->factory([service('doctrine.migrations.dependency_factory'), 'getSchemaProvider'])
         ->set(ConfigurableSchemaProvider::class)->args([
             '$subscriber' => inlineService(SchemaSubscriberChain::class, [
                 tagged_iterator(SchemaSubscriber::class),
             ]),
         ])
         ->set(SchemaValidateCommand::class)->args([
+            '$schemaProvider' => service(ConfigurableSchemaProvider::class),
             '$configuration' => service('doctrine.migrations.configuration'),
         ])
     ;
-
-    if ($module->isDev()) {
-        $module->set(FixPostgresDefaultSchemaListener::class)->tag('doctrine.event_listener', ['event' => ToolEvents::postGenerateSchema]);
-    }
 };

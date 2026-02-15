@@ -71,7 +71,7 @@ final class RequestBuilder
     public function addAuthorization(string $token): self
     {
         $this->addHeaders([
-            'Authorization' => sprintf('Bearer %s', $token),
+            'Authorization' => \sprintf('Bearer %s', $token),
         ]);
 
         return $this;

@@ -21,6 +21,7 @@ $finder = (new Finder())
         __DIR__ . '/rector.php',
     ])
     ->exclude('var')
+    ->notPath('reference.php')
 ;
 
 $config = (new Config())
@@ -29,9 +30,12 @@ $config = (new Config())
 ;
 
 (new PhpCsFixerCodingStandard())->applyTo($config, [
-    '@PHPUnit100Migration:risky' => true,
+    '@PHPUnit10x0Migration:risky' => true,
     'method_chaining_indentation' => true,
     'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_for_chained_calls'],
+    'php_unit_data_provider_method_order' => false,
+    'php_unit_data_provider_name' => false,
+    'php_unit_data_provider_return_type' => false,
     'single_line_empty_body' => false,
 ]);
 

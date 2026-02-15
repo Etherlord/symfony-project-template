@@ -7,6 +7,7 @@ namespace App\Feature\User\Repository;
 use App\Infrastructure\Doctrine\SchemaConfigurator\SchemaConfigurator;
 use App\Infrastructure\Doctrine\SchemaConfigurator\SchemaSubscriber;
 use App\Infrastructure\PostgresThesis\PostgresConnection;
+use Doctrine\DBAL\Types\Exception\TypesException;
 use Thesis\StatementContext\Tsx;
 use Thesis\StatementExecutor\StatementExecutionException;
 
@@ -17,6 +18,9 @@ final readonly class PostgresUserRepository implements UserRepository, SchemaSub
     ) {
     }
 
+    /**
+     * @throws TypesException
+     */
     #[\Override]
     public function configureSchema(SchemaConfigurator $schema): void
     {

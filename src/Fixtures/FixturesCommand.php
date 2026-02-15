@@ -29,7 +29,7 @@ abstract class FixturesCommand extends ConsoleCommand
     #[\Override]
     final protected function doExecute(InputInterface $input, Output $output): int
     {
-        $output->title(sprintf('Loading "%s" fixtures', static::fixturesName()));
+        $output->title(\sprintf('Loading "%s" fixtures', static::fixturesName()));
 
         $progressBar = $output->progressBar('fixtures');
         $progressBar->start();
@@ -41,7 +41,7 @@ abstract class FixturesCommand extends ConsoleCommand
 
         $progressBar->finish();
         $output->newLine(2);
-        $output->success(sprintf('Successfully loaded "%s" fixtures.', static::fixturesName()));
+        $output->success(\sprintf('Successfully loaded "%s" fixtures.', static::fixturesName()));
 
         return self::SUCCESS;
     }

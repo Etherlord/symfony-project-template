@@ -1,6 +1,7 @@
 parameters:
     projectDirectory: "%currentWorkingDirectory%"
 
+deptrac:
     analyser:
         types:
             - class
@@ -20,17 +21,60 @@ parameters:
         - tests
 
     layers:
-        - { name: bin,        collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/bin/ } ] }
-        - { name: config,     collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/config/ } ] }
-        - { name: migrations, collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/migrations/ } ] }
-        - { name: public,     collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/public/ } ] }
-        - { name: src,        collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/src/ } ] }
-        - { name: src_dev,    collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/src-dev/ } ] }
-        - { name: tests,      collectors: [ { type: directory, regex: ^%currentWorkingDirectory%/tests/ } ] }
+        - name: bin
+          collectors:
+              - type: directory
+                value: bin/.*
+
+        - name: config
+          collectors:
+              - type: directory
+                value: config/.*
+
+        - name: migrations
+          collectors:
+              - type: directory
+                value: migrations/.*
+
+        - name: public
+          collectors:
+              - type: directory
+                value: public/.*
+
+        - name: src
+          collectors:
+              - type: directory
+                value: src/.*
+
+        - name: src_dev
+          collectors:
+              - type: directory
+                value: src-dev/.*
+
+        - name: tests
+          collectors:
+            - type: bool
+              must:
+                - type: directory
+                  value: ^tests/.*
+              must_not:
+                - type: directory
+                  value: ^src-dev/.*
 
     ruleset:
-        bin:     [ src ]
-        config:  [ src, srv_dev ]
-        public:  [ src ]
-        src_dev: [ src ]
-        tests:   [ src, src_dev ]
+        bin:
+            - src
+        config:
+            - src
+            - src_dev
+        migrations: ~
+        public:
+            - src
+        src: ~
+        src_dev:
+            - src
+            - src_dev
+        tests:
+            - src
+            - src_dev
+            - tests

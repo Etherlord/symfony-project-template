@@ -18,7 +18,7 @@ use Thesis\Transaction\TransactionIsolationLevels;
  */
 final readonly class PostgresConnection
 {
-    private const DEFAULT_CURSOR_LIMIT = 1000;
+    private const DEFAULT_CURSOR_LIMIT = 1_000;
 
     private ThesisPostgresConnection $connection;
 

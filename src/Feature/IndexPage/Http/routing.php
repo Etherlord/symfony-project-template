@@ -14,8 +14,8 @@ return static function (RoutingConfigurator $routing): void {
         ->controller(TemplateController::class)
         ->defaults([
             'template' => '@IndexPage/Http/index.html.twig',
-            'maxAge' => 86400,
-            'sharedAge' => 86400,
+            'maxAge' => 86_400,
+            'sharedAge' => 86_400,
             'private' => false,
         ])
     ;
